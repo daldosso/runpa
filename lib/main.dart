@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import './gridview.dart';
+import './home.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-  final MyGridView myGridView = MyGridView();
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Podistica Arona App',
       theme: ThemeData(
         // This is the theme of your application.
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: myGridView.build(),
+      home: HomePage(),
     );
   }
 }
