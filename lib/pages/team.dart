@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,7 +6,8 @@ class TeamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final List<String> items = List<String>.generate(10000, (i) => "Item $i");
-    List<Athlete> items = new List<Athlete>();
+    List<Athlete> items = List<Athlete>();
+    //items.add(Athlete());
     fetchAthletes().then((value) => items = value);
 
     return Scaffold(
@@ -16,13 +15,25 @@ class TeamPage extends StatelessWidget {
         title: Text('Team'),
       ),
       body: Center(
-        child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text('${items[index]}'),
-              );
-            }),
+        child: FutureBuilder<List<Athlete>>(
+          future: fetchAthletes(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Athlete> data = snapshot.data;
+              return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                          '${data[index].firstName} ${data[index].lastName}'),
+                    );
+                  });
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return CircularProgressIndicator();
+          },
+        ),
       ),
     );
   }
