@@ -5,11 +5,6 @@ import 'package:http/http.dart' as http;
 class TeamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final List<String> items = List<String>.generate(10000, (i) => "Item $i");
-    List<Athlete> items = List<Athlete>();
-    //items.add(Athlete());
-    fetchAthletes().then((value) => items = value);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Team'),

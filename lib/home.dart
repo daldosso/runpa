@@ -42,10 +42,13 @@ class MyGridView {
                 semanticLabel: 'Text to announce in accessibility modes',
               ),
               Center(
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 25.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 25.0,
+                    ),
                   ),
                 ),
               )
@@ -56,41 +59,45 @@ class MyGridView {
     );
   }
 
-  GridView build(BuildContext context) {
-    return GridView.count(
-      primary: true,
-      padding: const EdgeInsets.all(1.0),
-      crossAxisCount: 2,
-      childAspectRatio: 1,
-      mainAxisSpacing: 1.0,
-      crossAxisSpacing: 1.0,
-      children: <Widget>[
-        getStructuredGridCell("Team", Icons.person, () {
-          print("onTap Team called.");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TeamPage()));
-        }),
-        getStructuredGridCell("Eventi", Icons.favorite, () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => EventsPage()));
-        }),
-        getStructuredGridCell("Challenge run", Icons.directions_run, () {
-          print("onTap called.");
-          //Navigator.of(context).push(createRoute());
-        }),
-        getStructuredGridCell("Gare", Icons.people, () {
-          print("onTap called.");
-          //Navigator.of(context).push(createRoute());
-        }),
-        getStructuredGridCell("Condividi", Icons.local_see, () {
-          print("onTap called.");
-          //Navigator.of(context).push(createRoute());
-        }),
-        getStructuredGridCell("Negozio", Icons.shop, () {
-          print("onTap called.");
-          //Navigator.of(context).push(createRoute());
-        }),
-      ],
+  Container build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: GridView.count(
+        shrinkWrap: true,
+        primary: true,
+        padding: const EdgeInsets.all(1.0),
+        crossAxisCount: 2,
+        childAspectRatio: 1,
+        mainAxisSpacing: 1.0,
+        crossAxisSpacing: 1.0,
+        children: <Widget>[
+          getStructuredGridCell("Team", Icons.person, () {
+            print("onTap Team called.");
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TeamPage()));
+          }),
+          getStructuredGridCell("Eventi", Icons.favorite, () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => EventsPage()));
+          }),
+          getStructuredGridCell("Challenge run", Icons.directions_run, () {
+            print("onTap called.");
+            //Navigator.of(context).push(createRoute());
+          }),
+          getStructuredGridCell("Gare", Icons.people, () {
+            print("onTap called.");
+            //Navigator.of(context).push(createRoute());
+          }),
+          getStructuredGridCell("Condividi", Icons.local_see, () {
+            print("onTap called.");
+            //Navigator.of(context).push(createRoute());
+          }),
+          getStructuredGridCell("Negozio", Icons.shop, () {
+            print("onTap called.");
+            //Navigator.of(context).push(createRoute());
+          }),
+        ],
+      ),
     );
   }
 }
