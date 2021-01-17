@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:runpa/pages/challenge.dart';
 import 'package:runpa/pages/events.dart';
 import 'package:runpa/pages/team.dart';
 
@@ -82,7 +83,8 @@ class MyGridView {
           }),
           getStructuredGridCell("Challenge run", Icons.directions_run, () {
             print("onTap called.");
-            //Navigator.of(context).push(createRoute());
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChallengeRunPage()));
           }),
           getStructuredGridCell("Gare", Icons.people, () {
             print("onTap called.");
