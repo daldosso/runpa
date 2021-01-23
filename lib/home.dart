@@ -4,7 +4,7 @@ import 'package:runpa/pages/events.dart';
 import 'package:runpa/pages/team.dart';
 
 class HomePage extends StatelessWidget {
-  final MyGridView myGridView = MyGridView();
+  final Body body = Body();
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,15 @@ class HomePage extends StatelessWidget {
           onPressed: () {},
         ),
       ]),
-      body: myGridView.build(context),
+      body: body.build(context),
     );
+  }
+}
+
+class Body {
+  Container build(BuildContext context) {
+    final MyGridView myGridView = MyGridView();
+    return myGridView.build(context);
   }
 }
 
@@ -90,14 +97,14 @@ class MyGridView {
             print("onTap called.");
             //Navigator.of(context).push(createRoute());
           }),
-          getStructuredGridCell("Condividi", Icons.local_see, () {
+          /*getStructuredGridCell("Condividi", Icons.local_see, () {
             print("onTap called.");
             //Navigator.of(context).push(createRoute());
           }),
           getStructuredGridCell("Negozio", Icons.shop, () {
             print("onTap called.");
             //Navigator.of(context).push(createRoute());
-          }),
+          }),*/
         ],
       ),
     );
