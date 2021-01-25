@@ -24,7 +24,16 @@ class HomePage extends StatelessWidget {
 class Body {
   Container build(BuildContext context) {
     final MyGridView myGridView = MyGridView();
-    return myGridView.build(context);
+    return Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+            Container(
+                margin: const EdgeInsets.all(20.0),
+                child: Image(image: AssetImage('data_repo/img/logo_top.png'))),
+            myGridView.build(context)
+          ],
+        ));
   }
 }
 
