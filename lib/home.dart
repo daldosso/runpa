@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:runpa/pages/challenge.dart';
 import 'package:runpa/pages/events.dart';
+import 'package:runpa/pages/races.dart';
 import 'package:runpa/pages/team.dart';
 
 class HomePage extends StatelessWidget {
@@ -98,13 +99,12 @@ class MyGridView {
                 context, MaterialPageRoute(builder: (context) => EventsPage()));
           }),
           getStructuredGridCell("Challenge run", Icons.directions_run, () {
-            print("onTap called.");
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ChallengeRunPage()));
           }),
           getStructuredGridCell("Gare", Icons.people, () {
-            print("onTap called.");
-            //Navigator.of(context).push(createRoute());
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => RacesPage()));
           }),
           /*getStructuredGridCell("Condividi", Icons.local_see, () {
             print("onTap called.");
