@@ -15,14 +15,25 @@ class TeamPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Athlete> data = snapshot.data;
-              return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                          '${data[index].firstName} ${data[index].lastName}'),
-                    );
-                  });
+              return ListView.separated(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('data_repo/img/logo_top.png'),
+                    ),
+                    title: Text(
+                        '${data[index].firstName} ${data[index].lastName}'),
+                    onTap: () {},
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 5,
+                    color: Colors.blue,
+                  );
+                },
+              );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
