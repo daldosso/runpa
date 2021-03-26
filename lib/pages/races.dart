@@ -15,13 +15,20 @@ class RacesPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Challenge> data = snapshot.data;
-              return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text('${data[index].date} ${data[index].title}'),
-                    );
-                  });
+              return ListView.separated(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('${data[index].date} ${data[index].name}'),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 5,
+                    color: Colors.blue,
+                  );
+                },
+              );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
@@ -47,14 +54,14 @@ Future<List<Challenge>> fetchAthletes() async {
 
 class Challenge {
   final String date;
-  final String title;
+  final String name;
 
-  Challenge({this.date, this.title});
+  Challenge({this.date, this.name});
 
   factory Challenge.fromJson(Map<String, dynamic> json) {
     return Challenge(
       date: json['date'],
-      title: json['title'],
+      name: json['name'],
     );
   }
 }

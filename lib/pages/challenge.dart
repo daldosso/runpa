@@ -19,7 +19,7 @@ class ChallengeRunPage extends StatelessWidget {
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text('${data[index].date} ${data[index].title}'),
+                      title: Text('${data[index].date} ${data[index].name}'),
                     );
                   });
             } else if (snapshot.hasError) {
@@ -47,14 +47,14 @@ Future<List<Challenge>> fetchAthletes() async {
 
 class Challenge {
   final String date;
-  final String title;
+  final String name;
 
-  Challenge({this.date, this.title});
+  Challenge({this.date, this.name});
 
   factory Challenge.fromJson(Map<String, dynamic> json) {
     return Challenge(
       date: json['date'],
-      title: json['title'],
+      name: json['name'],
     );
   }
 }
