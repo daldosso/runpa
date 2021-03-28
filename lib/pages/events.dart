@@ -4,8 +4,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool isLoading = true;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Eventi'),

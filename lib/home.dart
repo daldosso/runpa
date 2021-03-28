@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:runpa/pages/challenge.dart';
 import 'package:runpa/pages/events.dart';
+import 'package:runpa/pages/login.dart';
 import 'package:runpa/pages/races.dart';
 import 'package:runpa/pages/team.dart';
 
@@ -13,8 +14,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: Text('Podistica Arona'), actions: <Widget>[
         // action button
         IconButton(
-          icon: Icon(Icons.exit_to_app),
-          onPressed: () {},
+          icon: Icon(Icons.login),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          },
         ),
       ]),
       body: body.build(context),
