@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:runpa/pages/challenge.dart';
 import 'package:runpa/pages/events.dart';
 import 'package:runpa/pages/login.dart';
+import 'package:runpa/pages/menu.dart';
 import 'package:runpa/pages/races.dart';
 import 'package:runpa/pages/team.dart';
 
@@ -12,7 +13,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Podistica Arona'), actions: <Widget>[
-        // action button
         IconButton(
           icon: Icon(Icons.login),
           onPressed: () {
@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
         ),
       ]),
       body: body.build(context),
+      drawer: Drawer(child: Menu().build(context)),
     );
   }
 }

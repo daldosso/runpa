@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:runpa/util/dbhelper.dart';
 
 class ChallengeRunPage extends StatelessWidget {
   @override
@@ -39,9 +40,16 @@ Future<List<Challenge>> fetchAthletes() async {
   final responseJson = json.decode(response.body);
   List<Challenge> result = new List<Challenge>();
   List<dynamic> data = responseJson["data"];
+
+  DbHelper helper = DbHelper();
+  await helper.initializeDb();
+
   data.forEach((element) {
-    result.add(Challenge.fromJson(element));
+    var challengeRun = Challenge.fromJson(element);
+    //helper.insertChallengeRun(challengeRun);
+    result.add(challengeRun);
   });
+
   return result;
 }
 
