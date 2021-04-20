@@ -27,6 +27,18 @@ class ChallengeRun {
     this._participants = o["participants"];
   }
 
+  factory ChallengeRun.fromJson(Map<String, dynamic> json) {
+    return ChallengeRun(
+      json['date'],
+      json['name'],
+      json['distance'],
+      json['type'],
+      json['name'],
+      json['plase'],
+      int.parse(json['score']),
+    );
+  }
+
   int get id => _id;
   String get date => _date;
   String get distance => _distance;

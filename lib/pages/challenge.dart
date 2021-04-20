@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:runpa/model/challenge_run.dart';
 import 'package:runpa/util/dbhelper.dart';
 
 class ChallengeRunPage extends StatelessWidget {
@@ -11,11 +12,11 @@ class ChallengeRunPage extends StatelessWidget {
         title: Text('Challenge Run'),
       ),
       body: Center(
-        child: FutureBuilder<List<Challenge>>(
+        child: FutureBuilder<List<ChallengeRun>>(
           future: fetchAthletes(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Challenge> data = snapshot.data;
+              List<ChallengeRun> data = snapshot.data;
               return ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (context, index) {
@@ -34,35 +35,30 @@ class ChallengeRunPage extends StatelessWidget {
   }
 }
 
-Future<List<Challenge>> fetchAthletes() async {
-  final response =
-      await http.get('https://spendynode.herokuapp.com/challenge-run');
-  final responseJson = json.decode(response.body);
-  List<Challenge> result = new List<Challenge>();
-  List<dynamic> data = responseJson["data"];
+Future<List<ChallengeRun>> fetchAthletes() async {
+  List<ChallengeRun> result = new List<ChallengeRun>();
 
   DbHelper helper = DbHelper();
   await helper.initializeDb();
 
-  data.forEach((element) {
-    var challengeRun = Challenge.fromJson(element);
-    //helper.insertChallengeRun(challengeRun);
-    result.add(challengeRun);
-  });
+  var challengeRuns = await helper.getChallengeRuns();
+  if (challengeRuns.length > 0) {
+    challengeRuns.forEach((element) {
+      var challengeRun = ChallengeRun.fromJson(element);
+      result.add(challengeRun);
+    });
+  } else {
+    final response =
+        await http.get('https://spendynode.herokuapp.com/challenge-run');
+    final responseJson = json.decode(response.body);
+    List<dynamic> data = responseJson["data"];
+
+    data.forEach((element) {
+      var challengeRun = ChallengeRun.fromJson(element);
+      helper.insertChallengeRun(challengeRun);
+      result.add(challengeRun);
+    });
+  }
 
   return result;
-}
-
-class Challenge {
-  final String date;
-  final String name;
-
-  Challenge({this.date, this.name});
-
-  factory Challenge.fromJson(Map<String, dynamic> json) {
-    return Challenge(
-      date: json['date'],
-      name: json['name'],
-    );
-  }
 }

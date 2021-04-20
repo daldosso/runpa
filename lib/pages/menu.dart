@@ -10,7 +10,7 @@ class Menu extends StatelessWidget {
       future: fetchMenu(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<MenuItem> data = snapshot.data;
+          //List<MenuItem> data = snapshot.data;
           return ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[

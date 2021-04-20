@@ -27,7 +27,7 @@ class DbHelper {
 
   Future<Database> initializeDb() async {
     Directory dir = await getApplicationDocumentsDirectory();
-    String path = await dir.path + "runpa.db";
+    String path = dir.path + "runpa.db";
     var dbRunpa = await openDatabase(path, version: 1, onCreate: _onCreateDb);
     return dbRunpa;
   }
