@@ -24,7 +24,7 @@ class ChallengeRun {
     this._name = o["name"];
     this._place = o["place"];
     this._score = o["score"];
-    this._participants = o["participants"];
+    this._participants = int.tryParse(o["participants"]);
   }
 
   factory ChallengeRun.fromJson(Map<String, dynamic> json) {
@@ -33,9 +33,19 @@ class ChallengeRun {
       json['name'],
       json['distance'],
       json['type'],
-      json['name'],
-      json['plase'],
+      json['place'],
       int.parse(json['score']),
+    );
+  }
+
+  factory ChallengeRun.fromMap(Map<String, Object> map) {
+    return ChallengeRun(
+      map['date'],
+      map['name'],
+      map['distance'],
+      map['type'],
+      map['place'],
+      map['score'],
     );
   }
 

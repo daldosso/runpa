@@ -44,7 +44,7 @@ Future<List<ChallengeRun>> fetchAthletes() async {
   var challengeRuns = await helper.getChallengeRuns();
   if (challengeRuns.length > 0) {
     challengeRuns.forEach((element) {
-      var challengeRun = ChallengeRun.fromJson(element);
+      var challengeRun = ChallengeRun.fromMap(element);
       result.add(challengeRun);
     });
   } else {

@@ -9,7 +9,7 @@ class DbHelper {
   String tableChallengeRun = "challenge_run";
 
   String colId = "id";
-  String colDescription = "description";
+  String colName = "name";
 
   DbHelper._internal();
 
@@ -33,8 +33,18 @@ class DbHelper {
   }
 
   void _onCreateDb(Database db, int newVersion) async {
-    await db.execute(
-        "CREATE TABLE $tableChallengeRun($colId INTEGER PRIMARY KEY, $colDescription TEXT)");
+    await db.execute("""
+          CREATE TABLE $tableChallengeRun(
+            $colId INTEGER PRIMARY KEY, 
+            $colName TEXT,
+            date TEXT,
+            distance TEXT,
+            type TEXT,
+            place TEXT,
+            score INTEGER,
+            participants INTEGER
+          )
+        """);
   }
 
   Future<int> insertChallengeRun(ChallengeRun challengeRun) async {
