@@ -17,13 +17,24 @@ class ChallengeRunPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<ChallengeRun> data = snapshot.data;
-              return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text('${data[index].date} ${data[index].name}'),
-                    );
-                  });
+              return ListView.separated(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  var item = data[index];
+                  return ListTile(
+                    title: Text("""
+                      ${item.date}\n${item.name}\n${item.distance}\n${item.type}\n${item.place}\n${item.score}  
+                    """
+                        .trim()),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 5,
+                    color: Colors.blue,
+                  );
+                },
+              );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
@@ -36,7 +47,7 @@ class ChallengeRunPage extends StatelessWidget {
 }
 
 Future<List<ChallengeRun>> fetchAthletes() async {
-  List<ChallengeRun> result = new List<ChallengeRun>();
+  List<ChallengeRun> result = [];
 
   DbHelper helper = DbHelper();
   await helper.initializeDb();
@@ -48,8 +59,8 @@ Future<List<ChallengeRun>> fetchAthletes() async {
       result.add(challengeRun);
     });
   } else {
-    final response =
-        await http.get('https://spendynode.herokuapp.com/challenge-run');
+    final response = await http
+        .get(Uri.parse('https://spendynode.herokuapp.com/challenge-run'));
     final responseJson = json.decode(response.body);
     List<dynamic> data = responseJson["data"];
 

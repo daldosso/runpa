@@ -41,10 +41,10 @@ class RacesPage extends StatelessWidget {
 }
 
 Future<List<Challenge>> fetchAthletes() async {
-  final response =
-      await http.get('https://spendynode.herokuapp.com/challenge-run');
+  final response = await http
+      .get(Uri.parse('https://spendynode.herokuapp.com/challenge-run'));
   final responseJson = json.decode(response.body);
-  List<Challenge> result = new List<Challenge>();
+  List<Challenge> result = [];
   List<dynamic> data = responseJson["data"];
   data.forEach((element) {
     result.add(Challenge.fromJson(element));

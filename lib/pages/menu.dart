@@ -70,10 +70,10 @@ class Menu extends StatelessWidget {
 
   Future<List<MenuItem>> fetchMenu() async {
     {
-      final response =
-          await http.get('https://spendynode.herokuapp.com/challenge-run');
+      final response = await http
+          .get(Uri.parse('https://spendynode.herokuapp.com/challenge-run'));
       final responseJson = json.decode(response.body);
-      List<MenuItem> result = new List<MenuItem>();
+      List<MenuItem> result = [];
       List<dynamic> data = responseJson["data"];
 
       data.forEach((element) {
