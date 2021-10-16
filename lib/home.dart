@@ -99,7 +99,7 @@ class MyGridView {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TeamPage()));
           }),
-          getStructuredGridCell("Eventi", Icons.favorite, () {
+          getStructuredGridCell("Foto", Icons.photo_camera, () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => EventsPage()));
           }),
