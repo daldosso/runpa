@@ -7,42 +7,50 @@ import 'package:runpa/util/dbhelper.dart';
 class ChallengeRunPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Challenge Run'),
-      ),
-      body: Center(
-        child: FutureBuilder<List<ChallengeRun>>(
-          future: fetchAthletes(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<ChallengeRun> data = snapshot.data;
-              return ListView.separated(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  var item = data[index];
-                  return ListTile(
-                    title: Text("""
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Challenge Run'),
+            bottom: const TabBar(
+              tabs: [
+                Tab(text: 'Calendario', icon: Icon(Icons.calendar_view_month)),
+                Tab(text: 'Classifica', icon: Icon(Icons.list)),
+              ],
+            ),
+          ),
+          body: Center(
+            child: FutureBuilder<List<ChallengeRun>>(
+              future: fetchAthletes(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<ChallengeRun> data = snapshot.data;
+                  return ListView.separated(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      var item = data[index];
+                      return ListTile(
+                        title: Text("""
                       ${item.date}\n${item.name}\n${item.distance}\n${item.type}\n${item.place}\n${item.score}  
                     """
-                        .trim()),
+                            .trim()),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        height: 5,
+                        color: Colors.blue,
+                      );
+                    },
                   );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    height: 5,
-                    color: Colors.blue,
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            return CircularProgressIndicator();
-          },
-        ),
-      ),
-    );
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
+            ),
+          ),
+        ));
   }
 }
 

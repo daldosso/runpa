@@ -99,7 +99,7 @@ class MyGridView {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TeamPage()));
           }),
-          getStructuredGridCell("Foto", Icons.photo_camera, () {
+          getStructuredGridCell("Eventi", Icons.alarm, () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => EventsPage()));
           }),
@@ -107,7 +107,7 @@ class MyGridView {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ChallengeRunPage()));
           }),
-          getStructuredGridCell("Gare", Icons.people, () {
+          getStructuredGridCell("Foto", Icons.photo_camera, () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => RacesPage()));
           }),
