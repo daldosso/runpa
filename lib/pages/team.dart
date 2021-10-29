@@ -84,4 +84,13 @@ class Athlete {
       photo: json['foto_400x400'],
     );
   }
+
+  factory Athlete.fromMap(Map<String, Object> map) {
+    return Athlete(
+      id: map['ip_id'],
+      lastName: map['ip_cognome'],
+      firstName: map['ip_nome'],
+      photo: map['foto_400x400'],
+    );
+  }
 }
