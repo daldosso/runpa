@@ -1,3 +1,5 @@
+import 'package:runpa/pages/team.dart';
+
 class ChallengeRun {
   int _id;
   String _date;
@@ -37,4 +39,8 @@ class ChallengeRun {
     map["description"] = _description;
     return map;
   }
+}
+
+class ChallengeAthlete extends Athlete {
+  String score;
 }

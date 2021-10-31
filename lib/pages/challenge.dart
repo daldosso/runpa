@@ -23,7 +23,7 @@ class ChallengeRunPage extends StatelessWidget {
           body: TabBarView(children: [
             Center(
               child: FutureBuilder<List<ChallengeRun>>(
-                future: fetchAthletes(),
+                future: fetchChallengeCalendar(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<ChallengeRun> data = snapshot.data;
@@ -75,11 +75,11 @@ class ChallengeRunPage extends StatelessWidget {
                         decorationStyle: TextDecorationStyle.wavy,
                       ),
                     )),
-                FutureBuilder<List<ChallengeRun>>(
-                  future: fetchAthletes(),
+                FutureBuilder<List<ChallengeAthlete>>(
+                  future: fetchFemaleChart(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<ChallengeRun> data = snapshot.data;
+                      List<ChallengeAthlete> data = snapshot.data;
                       return ListView.separated(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -88,8 +88,8 @@ class ChallengeRunPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var item = data[index];
                           return ListTile(
-                            title: Text(
-                                """${item.date}\n${item.description}""".trim()),
+                            title: Text(item.firstName + " " + item.lastName),
+                            subtitle: Text(item.score),
                           );
                         },
                         separatorBuilder: (context, index) {
@@ -121,11 +121,11 @@ class ChallengeRunPage extends StatelessWidget {
                         decorationStyle: TextDecorationStyle.wavy,
                       ),
                     )),
-                FutureBuilder<List<ChallengeRun>>(
-                  future: fetchAthletes(),
+                FutureBuilder<List<ChallengeAthlete>>(
+                  future: fetchMaleChart(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<ChallengeRun> data = snapshot.data;
+                      List<ChallengeAthlete> data = snapshot.data;
                       return ListView.separated(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -134,8 +134,7 @@ class ChallengeRunPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var item = data[index];
                           return ListTile(
-                            title: Text(
-                                """${item.date}\n${item.description}""".trim()),
+                            title: Text(item.firstName + " " + item.lastName),
                           );
                         },
                         separatorBuilder: (context, index) {
@@ -158,7 +157,7 @@ class ChallengeRunPage extends StatelessWidget {
   }
 }
 
-Future<List<ChallengeRun>> fetchAthletes() async {
+Future<List<ChallengeRun>> fetchChallengeCalendar() async {
   List<ChallengeRun> result = [];
 
   DbHelper helper = DbHelper();
@@ -188,13 +187,27 @@ Future<List<ChallengeRun>> fetchAthletes() async {
   return result;
 }
 
-Future<List<Athlete>> fetchFemaleChart() async {
+Future<List<ChallengeAthlete>> fetchFemaleChart() async {
   List<Athlete> result = [];
 
   final response = await http.get(Uri.parse(
-      'https://www.podisticaarona.it/wp-json/pa2wp/mypa/v1/getchallengerun/calendar'));
-  final responseJson = json.decode(response.body);
-  List<dynamic> data = responseJson["data"];
+      'https://www.podisticaarona.it/wp-json/pa2wp/mypa/v1/getchallengerun/chart'));
+  List<dynamic> data = json.decode(response.body);
+
+  data.forEach((element) {
+    var challengeRun = Athlete.fromJson(element);
+    result.add(challengeRun);
+  });
+
+  return result;
+}
+
+Future<List<ChallengeAthlete>> fetchMaleChart() async {
+  List<Athlete> result = [];
+
+  final response = await http.get(Uri.parse(
+      'https://www.podisticaarona.it/wp-json/pa2wp/mypa/v1/getchallengerun/chart'));
+  List<dynamic> data = json.decode(response.body);
 
   data.forEach((element) {
     var challengeRun = Athlete.fromJson(element);
