@@ -32,9 +32,15 @@ class ChallengeRunPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var item = data[index];
                         return ListTile(
+                          leading: Icon(Icons.date_range),
                           title: Text(
-                              """${item.date}\n\n${item.description}""".trim()),
-                          contentPadding: EdgeInsets.all(20),
+                            item.date,
+                          ),
+                          subtitle: Text(
+                            item.description.trim(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) {
