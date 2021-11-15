@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:runpa/model/challenge_run.dart';
 import 'package:runpa/pages/team.dart';
 import 'package:runpa/util/dbhelper.dart';
@@ -34,7 +35,7 @@ class ChallengeRunPage extends StatelessWidget {
                         return ListTile(
                           leading: Icon(Icons.date_range),
                           title: Text(
-                            item.date,
+                            DateFormat.yMMMd().format(item.date),
                           ),
                           subtitle: Text(
                             item.description.trim(),

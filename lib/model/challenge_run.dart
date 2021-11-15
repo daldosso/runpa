@@ -2,7 +2,7 @@ import 'package:runpa/pages/team.dart';
 
 class ChallengeRun {
   int _id;
-  String _date;
+  DateTime _date;
   String _description;
 
   ChallengeRun(this._date, this._description); // partecipants is optional
@@ -24,13 +24,13 @@ class ChallengeRun {
 
   factory ChallengeRun.fromMap(Map<String, Object> map) {
     return ChallengeRun(
-      map['date'],
+      DateTime.parse(map['date']),
       map['description'],
     );
   }
 
   int get id => _id;
-  String get date => _date;
+  DateTime get date => _date;
   String get description => _description;
 
   Map<String, dynamic> toMap() {
