@@ -17,7 +17,7 @@ class ChallengeRun {
 
   factory ChallengeRun.fromJson(Map<String, dynamic> json) {
     return ChallengeRun(
-      json['run_date'],
+      DateTime.parse(json['run_date']),
       json['description'],
     );
   }

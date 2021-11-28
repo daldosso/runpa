@@ -165,7 +165,7 @@ Future<List<ChallengeRun>> fetchChallengeCalendar() async {
   await helper.initializeDb();
 
   var challengeRuns = await helper.getChallengeRuns();
-  if (challengeRuns.length > 0) {
+  if (challengeRuns.length > 0 && false) {
     challengeRuns.forEach((element) {
       var challengeRun = ChallengeRun.fromMap(element);
       result.add(challengeRun);
@@ -184,7 +184,7 @@ Future<List<ChallengeRun>> fetchChallengeCalendar() async {
       result.add(challengeRun);
     });
   }
-
+  result.sort((a, b) => b.date.compareTo(a.date));
   return result;
 }
 
