@@ -90,7 +90,7 @@ class MenuItem {
   final String id;
   final String title;
 
-  MenuItem({this.id, this.title});
+  MenuItem({required this.id, required this.title});
 
   factory MenuItem.fromJson(Map<String, dynamic> json) {
     return MenuItem(

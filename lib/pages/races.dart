@@ -14,9 +14,9 @@ class RacesPage extends StatelessWidget {
           future: fetchAthletes(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Challenge> data = snapshot.data;
+              List<Challenge>? data = snapshot.data;
               return ListView.separated(
-                itemCount: data.length,
+                itemCount: data!.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text('${data[index].date} ${data[index].name}'),
@@ -56,7 +56,7 @@ class Challenge {
   final String date;
   final String name;
 
-  Challenge({this.date, this.name});
+  Challenge({required this.date, required this.name});
 
   factory Challenge.fromJson(Map<String, dynamic> json) {
     return Challenge(

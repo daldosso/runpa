@@ -1,9 +1,9 @@
 import 'package:runpa/pages/team.dart';
 
 class ChallengeRun {
-  int _id;
-  DateTime _date;
-  String _description;
+  int _id = 0;
+  DateTime _date = DateTime.now();
+  String _description = "";
 
   ChallengeRun(this._date, this._description); // partecipants is optional
 
@@ -24,8 +24,8 @@ class ChallengeRun {
 
   factory ChallengeRun.fromMap(Map<String, Object> map) {
     return ChallengeRun(
-      DateTime.parse(map['date']),
-      map['description'],
+      DateTime.parse(map['date'] as String),
+      map['description'] as String,
     );
   }
 
@@ -42,5 +42,13 @@ class ChallengeRun {
 }
 
 class ChallengeAthlete extends Athlete {
-  String score;
+  late String score;
+
+  ChallengeAthlete(
+      {required super.lastName,
+      required super.id,
+      required super.firstName,
+      required super.photo});
+
+  static fromJson(element) {}
 }

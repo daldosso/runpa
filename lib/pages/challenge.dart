@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:runpa/model/challenge_run.dart';
-import 'package:runpa/pages/team.dart';
 import 'package:runpa/util/dbhelper.dart';
 
 class ChallengeRunPage extends StatelessWidget {
@@ -27,9 +26,9 @@ class ChallengeRunPage extends StatelessWidget {
                 future: fetchChallengeCalendar(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<ChallengeRun> data = snapshot.data;
+                    List<ChallengeRun>? data = snapshot.data;
                     return ListView.separated(
-                      itemCount: data.length,
+                      itemCount: data!.length,
                       itemBuilder: (context, index) {
                         var item = data[index];
                         return ListTile(
@@ -71,6 +70,7 @@ class ChallengeRunPage extends StatelessWidget {
                       "Classifica Femminile",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        // ignore: deprecated_member_use
                         color: Colors.blue.withOpacity(0.6),
                         fontSize: 40,
                         decorationStyle: TextDecorationStyle.wavy,
@@ -80,12 +80,12 @@ class ChallengeRunPage extends StatelessWidget {
                   future: fetchFemaleChart(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<ChallengeAthlete> data = snapshot.data;
+                      List<ChallengeAthlete>? data = snapshot.data;
                       return ListView.separated(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: data.length,
+                        itemCount: data!.length,
                         itemBuilder: (context, index) {
                           var item = data[index];
                           return ListTile(
@@ -117,6 +117,7 @@ class ChallengeRunPage extends StatelessWidget {
                       "Classifica Machile",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        // ignore: deprecated_member_use
                         color: Colors.blue.withOpacity(0.6),
                         fontSize: 40,
                         decorationStyle: TextDecorationStyle.wavy,
@@ -126,12 +127,12 @@ class ChallengeRunPage extends StatelessWidget {
                   future: fetchMaleChart(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<ChallengeAthlete> data = snapshot.data;
+                      List<ChallengeAthlete>? data = snapshot.data;
                       return ListView.separated(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: data.length,
+                        itemCount: data!.length,
                         itemBuilder: (context, index) {
                           var item = data[index];
                           return ListTile(
@@ -165,9 +166,9 @@ Future<List<ChallengeRun>> fetchChallengeCalendar() async {
   await helper.initializeDb();
 
   var challengeRuns = await helper.getChallengeRuns();
-  if (challengeRuns.length > 0 && false) {
+  if (challengeRuns!.length > 0) {
     challengeRuns.forEach((element) {
-      var challengeRun = ChallengeRun.fromMap(element);
+      var challengeRun = ChallengeRun.fromMap(element as Map<String, Object>);
       result.add(challengeRun);
     });
   } else {
@@ -189,14 +190,14 @@ Future<List<ChallengeRun>> fetchChallengeCalendar() async {
 }
 
 Future<List<ChallengeAthlete>> fetchFemaleChart() async {
-  List<Athlete> result = [];
+  List<ChallengeAthlete> result = [];
 
   final response = await http.get(Uri.parse(
       'https://www.podisticaarona.it/wp-json/pa2wp/mypa/v1/getchallengerun/chart'));
   List<dynamic> data = json.decode(response.body);
 
   data.forEach((element) {
-    var challengeRun = Athlete.fromJson(element);
+    var challengeRun = ChallengeAthlete.fromJson(element);
     result.add(challengeRun);
   });
 
@@ -204,14 +205,14 @@ Future<List<ChallengeAthlete>> fetchFemaleChart() async {
 }
 
 Future<List<ChallengeAthlete>> fetchMaleChart() async {
-  List<Athlete> result = [];
+  List<ChallengeAthlete> result = [];
 
   final response = await http.get(Uri.parse(
       'https://www.podisticaarona.it/wp-json/pa2wp/mypa/v1/getchallengerun/chart'));
   List<dynamic> data = json.decode(response.body);
 
   data.forEach((element) {
-    var challengeRun = Athlete.fromJson(element);
+    var challengeRun = ChallengeAthlete.fromJson(element);
     result.add(challengeRun);
   });
 

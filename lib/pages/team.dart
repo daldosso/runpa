@@ -15,9 +15,9 @@ class TeamPage extends StatelessWidget {
           future: fetchAthletes(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<Athlete> data = snapshot.data;
+              List<Athlete>? data = snapshot.data;
               return ListView.separated(
-                itemCount: data.length,
+                itemCount: data!.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
@@ -74,7 +74,11 @@ class Athlete {
   final String firstName;
   final String photo;
 
-  Athlete({this.lastName, this.id, this.firstName, this.photo});
+  Athlete(
+      {required this.lastName,
+      required this.id,
+      required this.firstName,
+      required this.photo});
 
   factory Athlete.fromJson(Map<String, dynamic> json) {
     return Athlete(
@@ -87,10 +91,10 @@ class Athlete {
 
   factory Athlete.fromMap(Map<String, Object> map) {
     return Athlete(
-      id: map['ip_id'],
-      lastName: map['ip_cognome'],
-      firstName: map['ip_nome'],
-      photo: map['foto_400x400'],
+      id: map['ip_id'] as String,
+      lastName: map['ip_cognome'] as String,
+      firstName: map['ip_nome'] as String,
+      photo: map['foto_400x400'] as String,
     );
   }
 }
